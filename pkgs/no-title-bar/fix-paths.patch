@@ -1,0 +1,85 @@
+diff --git a/decoration.js b/decoration.js
+index b3ed0c9..53ef815 100644
+--- a/decoration.js
++++ b/decoration.js
+@@ -214,7 +214,7 @@ var Decoration = class {
+         let act = win.get_compositor_private();
+         let xwindow = act && act['x-window'];
+         if (xwindow) {
+-            let xwininfo = GLib.spawn_command_line_sync('xwininfo -children -id 0x%x'.format(xwindow));
++            let xwininfo = GLib.spawn_command_line_sync('@xwininfo@ -children -id 0x%x'.format(xwindow));
+             if (xwininfo[0]) {
+                 let str = ByteArray.toString(xwininfo[1]);
+ 
+@@ -240,7 +240,7 @@ var Decoration = class {
+         // Try enumerating all available windows and match the title. Note that this
+         // may be necessary if the title contains special characters and `x-window`
+         // is not available.
+-        let result = GLib.spawn_command_line_sync('xprop -root _NET_CLIENT_LIST');
++        let result = GLib.spawn_command_line_sync('@xprop@ -root _NET_CLIENT_LIST');
+         if (result[0]) {
+             let str = ByteArray.toString(result[1]);
+ 
+@@ -251,7 +251,7 @@ var Decoration = class {
+ 
+             // For each window ID, check if the title matches the desired title.
+             for (var i = 0; i < windowList.length; ++i) {
+-                let cmd = 'xprop -id "' + windowList[i] + '" _NET_WM_NAME _NO_TITLE_BAR_ORIGINAL_STATE';
++                let cmd = '@xprop@ -id "' + windowList[i] + '" _NET_WM_NAME _NO_TITLE_BAR_ORIGINAL_STATE';
+                 let result = GLib.spawn_command_line_sync(cmd);
+ 
+                 if (result[0]) {
+@@ -303,7 +303,7 @@ var Decoration = class {
+         }
+ 
+         let id = this._guessWindowXID(win);
+-        let cmd = 'xprop -id ' + id;
++        let cmd = '@xprop@ -id ' + id;
+ 
+         let xprops = GLib.spawn_command_line_sync(cmd);
+         if (!xprops[0]) {
+@@ -322,7 +322,7 @@ var Decoration = class {
+         m = str.match(/^_GTK_HIDE_TITLEBAR_WHEN_MAXIMIZED(\(CARDINAL\))? = ([0-9]+)$/m);
+         if (m) {
+             let state = !!parseInt(m[2]);
+-            cmd = ['xprop', '-id', id,
++            cmd = ['@xprop@', '-id', id,
+                   '-f', '_NO_TITLE_BAR_ORIGINAL_STATE', '32c',
+                   '-set', '_NO_TITLE_BAR_ORIGINAL_STATE',
+                   (state ? '0x1' : '0x0')];
+@@ -403,7 +403,7 @@ var Decoration = class {
+         let winId = this._guessWindowXID(win);
+         if (!winId) return;
+ 
+-        let result = GLib.spawn_command_line_sync(`xprop -id ${winId} ${hint}`);
++        let result = GLib.spawn_command_line_sync(`@xprop@ -id ${winId} ${hint}`);
+         let string = ByteArray.toString(result[1]);
+         if (!string.match(/=/)) return;
+ 
+@@ -419,7 +419,7 @@ var Decoration = class {
+         let winId = this._guessWindowXID(win);
+         if (!winId) return;
+ 
+-        Util.spawn(['xprop', '-id', winId, '-f', hint, '32c', '-set', hint, value]);
++        Util.spawn(['@xprop@', '-id', winId, '-f', hint, '32c', '-set', hint, value]);
+     }
+ 
+     _getMotifHints(win) {
+@@ -471,7 +471,7 @@ var Decoration = class {
+         let prop = '_GTK_HIDE_TITLEBAR_WHEN_MAXIMIZED';
+         let value = hide ? '0x1' : '0x0';
+ 
+-        return ['xprop', '-id', winId, '-f', prop, '32c', '-set', prop, value];
++        return ['@xprop@', '-id', winId, '-f', prop, '32c', '-set', prop, value];
+     }
+ 
+     _toggleDecorationsMotif (winId, hide) {
+@@ -481,7 +481,7 @@ var Decoration = class {
+             ? flag.format(this._isWaylandComp ? '0x2' : '0x0')
+             : flag.format('0x1');
+ 
+-        return ['xprop', '-id', winId, '-f', prop, '32c', '-set', prop, value];
++        return ['@xprop@', '-id', winId, '-f', prop, '32c', '-set', prop, value];
+     }
+ 
+     /**** Callbacks ****/
