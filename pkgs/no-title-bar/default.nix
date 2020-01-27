@@ -15,9 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1jq12s3l30fnm2djs2p21mkzf463r1lp4lmmhvbj2xx8lpcmks99";
   };
 
-  nativeBuildInputs = [
-    glib gettext
-  ];
+  nativeBuildInputs = [ glib gettext ];
 
   patches = [
     (substituteAll {
@@ -31,7 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Integrates maximized windows with the top panel";
-    homepage = https://github.com/franglais125/no-title-bar;
+    homepage = "https://github.com/franglais125/no-title-bar";
     license = licenses.gpl2;
   };
 }
