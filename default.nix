@@ -5,5 +5,6 @@ let
   callPackage = pkgs.lib.callPackageWith (pkgs // self);
   self = {
     gnomeExtensions = { no-title-bar = callPackage ./pkgs/no-title-bar { }; };
+    libvitamtp = callPackage ./pkgs/libvitamtp { };
   };
 in self
