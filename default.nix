@@ -6,5 +6,6 @@ let
   self = {
     gnomeExtensions = { no-title-bar = callPackage ./pkgs/no-title-bar { }; };
     libvitamtp = callPackage ./pkgs/libvitamtp { };
+    qcma = callPackage ./pkgs/qcma { };
   };
 in self
