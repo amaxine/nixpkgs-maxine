@@ -8,5 +8,6 @@ let
     libvitamtp = callPackage ./pkgs/libvitamtp { };
     qcma = callPackage ./pkgs/qcma { };
     finalhe = callPackage ./pkgs/finalhe { };
+    dell-command-configure = callPackage ./pkgs/dell-command-configure { };
   };
 in self
