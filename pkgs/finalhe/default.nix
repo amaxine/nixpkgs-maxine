@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A tool to push the h-encore explot for PS Vita/PS TV automatically";
-    homepage = "https://github.com/soarqin/finalhe"
+    homepage = "https://github.com/soarqin/finalhe";
     license = licenses.gpl3;
   };
 }
