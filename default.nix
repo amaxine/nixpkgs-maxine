@@ -8,5 +8,6 @@ let
     libvitamtp = callPackage ./pkgs/libvitamtp { };
     qcma = callPackage ./pkgs/qcma { };
     finalhe = callPackage ./pkgs/finalhe { };
+    pico-8 = callPackage ./pkgs/pico-8 { };
   };
 in self
