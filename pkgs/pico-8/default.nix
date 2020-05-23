@@ -1,4 +1,4 @@
-{ stdenv, requireFile, unzip, makeDesktopItem, SDL2, xorg, libpulseaudio, libudev }:
+{ stdenv, requireFile, unzip, makeDesktopItem, SDL2, xorg, libpulseaudio, systemd }:
 
 let
   arch = if stdenv.system == "x86_64-linux"
@@ -6,8 +6,8 @@ let
     else "i386";
 
   sha = if stdenv.system == "x86_64-linux"
-    then "b9d2e793dc6fee94ba4e5e202129dac40491df15dfd19dfe3d9e8884d624d384"
-    else "1cd578f6c50acb7ea95dcedc87c37f088aad8a5e5212e3a78c3d0d37cc70a780";
+    then "9925ad06770a71854b1fee7dc6c69ca0760565ad5f3c0c8d11500f7ad39a445d"
+    else "d83062db0a2df78799ebe590593a215b470a27b834fb71a54052b65217add7af";
 
   desktopItem = makeDesktopItem {
     desktopName = "pico-8";
@@ -23,7 +23,7 @@ in
 
 stdenv.mkDerivation rec {
   pname = "pico-8";
-  version = "0.1.12c";
+  version = "0.2.0i";
 
   helpMsg = ''
     We cannot download the full version automatically, as you require a license.
@@ -42,10 +42,10 @@ stdenv.mkDerivation rec {
   phases = [ "unpackPhase" "installPhase" ];
 
   libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc.lib stdenv.cc.libc SDL2
-    xorg.libX11 xorg.libXinerama libpulseaudio libudev ];
+    xorg.libX11 xorg.libXinerama libpulseaudio ];
 
   installPhase = ''
-    mkdir -p $out/bin $out/share/applications $out/share/icons/hicolor/128x128/apps
+    mkdir -p $out/bin $out/lib $out/share/applications $out/share/icons/hicolor/128x128/apps
 
     install -t $out/bin -m755 -v pico8 
     install -t $out/bin -m644 pico8.dat
@@ -54,15 +54,18 @@ stdenv.mkDerivation rec {
     cp ${desktopItem}/share/applications/pico8.desktop \
       $out/share/applications/pico8.desktop
 
+    ln -s ${systemd.lib}/lib/libudev.so.1 $out/lib/libudev.so.1
+
     patchelf \
       --interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
-      --set-rpath $libPath \
+      --set-rpath ${libPath}:$out/lib \
       $out/bin/pico8
   '';
 
   meta = with stdenv.lib; {
     description = "Tiny 2D, 4-bit colour fantasy console.";
     homepage = "https://www.lexaloffle.com/pico-8.php";
+    license = licenses.unfree;
     platforms = [ "i686-linux" "x86_64-linux" ];
     maintainers = with maintainers; [ maxeaubrey ];
   };
