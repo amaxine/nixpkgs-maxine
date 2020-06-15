@@ -3,13 +3,13 @@
 
 stdenv.mkDerivation rec {
   pname = "finalhe";
-  version = "1.92";
+  version = "2020-05-25";
 
   src = fetchFromGitHub {
     owner = "soarqin";
     repo = "finalhe";
-    rev = "v${version}";
-    sha256 = "0i9y908lbpkk3z2i8sp3q39rmsbmpa3y92jwrnzhc5f4hah8iqrg";
+    rev = "624b8ebe3c68e412307c582931ce9d8de2e55b4a";
+    sha256 = "06k96dz3xs2ch8a547fs9jfhbhq1vk6gk55763spmb3iwcjpy6fa";
   };
 
   nativeBuildInputs = [
