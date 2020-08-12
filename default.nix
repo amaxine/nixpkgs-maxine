@@ -1,14 +1,13 @@
-{ system ? builtins.currentSystem }:
+{ pkgs ? import <nixpkgs> {} }:
 
-let
-  pkgs = import <nixpkgs> { inherit system; };
-  callPackage = pkgs.lib.callPackageWith (pkgs // self);
-  self = {
-    gnomeExtensions = { no-title-bar = callPackage ./pkgs/no-title-bar { }; };
-    libvitamtp = callPackage ./pkgs/libvitamtp { };
-    qcma = callPackage ./pkgs/qcma { };
-    finalhe = callPackage ./pkgs/finalhe { };
-    pico-8 = callPackage ./pkgs/pico-8 { };
-    voxatron = callPackage ./pkgs/voxatron { };
-  };
-in self
+{
+  modules = import ./modules;
+
+  gnomeExtensions = { no-title-bar = pkgs.callPackage ./pkgs/no-title-bar { }; };
+  libvitamtp = pkgs.callPackage ./pkgs/libvitamtp { };
+  qcma = pkgs.callPackage ./pkgs/qcma { };
+  finalhe = pkgs.callPackage ./pkgs/finalhe { };
+  pico-8 = pkgs.callPackage ./pkgs/pico-8 { };
+  voxatron = pkgs.callPackage ./pkgs/voxatron { };
+  dell-command-configure = pkgs.callPackage ./pkgs/dell-command-configure { };
+}
