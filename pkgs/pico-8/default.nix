@@ -5,9 +5,9 @@ let
     then "amd64"
     else "i386";
 
-  sha = if stdenv.system == "x86_64-linux"
-    then "9925ad06770a71854b1fee7dc6c69ca0760565ad5f3c0c8d11500f7ad39a445d"
-    else "d83062db0a2df78799ebe590593a215b470a27b834fb71a54052b65217add7af";
+  sha256 = if stdenv.system == "x86_64-linux"
+    then "cbeec79f9e6e3474761cd495acb8a0e2a68fd7a94a8160a5fdbbd08c5452d0d8"
+    else "2d729ebc0ba5c2281ea29f2e0291dbac3e0a9671b3e7f2d471411c6dd9ac719a";
 
   desktopItem = makeDesktopItem {
     desktopName = "pico-8";
@@ -23,7 +23,7 @@ in
 
 stdenv.mkDerivation rec {
   pname = "pico-8";
-  version = "0.2.0i";
+  version = "0.2.1b";
 
   helpMsg = ''
     We cannot download the full version automatically, as you require a license.
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   src = requireFile {
     message = helpMsg;
     name = "${pname}_${version}_${arch}.zip";
-    sha256 = sha;
+    inherit sha256;
   };
 
   buildInputs = [ unzip ];
