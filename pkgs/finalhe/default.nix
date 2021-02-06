@@ -1,4 +1,12 @@
-{ stdenv, fetchFromGitHub, cmake, qt5, libdeflate, libusb, libxml2, pkgconfig
+{ lib
+, stdenv
+, fetchFromGitHub
+, cmake
+, qt5
+, libdeflate
+, libusb
+, libxml2
+, pkgconfig
 , makeWrapper }:
 
 stdenv.mkDerivation rec {
@@ -30,7 +38,7 @@ stdenv.mkDerivation rec {
       --prefix QT_PLUGIN_PATH : "${qt5.qtbase}/${qt5.qtbase.qtPluginPrefix}"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A tool to push the h-encore explot for PS Vita/PS TV automatically";
     homepage = "https://github.com/soarqin/finalhe";
     license = licenses.gpl3;

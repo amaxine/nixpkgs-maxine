@@ -1,4 +1,12 @@
-{ stdenv, requireFile, unzip, makeDesktopItem, SDL2, xorg, libpulseaudio, systemd }:
+{ lib
+, stdenv
+, requireFile
+, unzip
+, makeDesktopItem
+, SDL2
+, xorg
+, libpulseaudio
+, systemd }:
 
 let
   arch = "amd64";
@@ -35,7 +43,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ unzip ];
   phases = [ "unpackPhase" "installPhase" ];
 
-  libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc.lib stdenv.cc.libc SDL2
+  libPath = pkgs.lib.makeLibraryPath [ stdenv.cc.cc.lib stdenv.cc.libc SDL2
     xorg.libX11 xorg.libXinerama libpulseaudio ];
 
   installPhase = ''
@@ -48,7 +56,7 @@ stdenv.mkDerivation rec {
     cp ${desktopItem}/share/applications/voxatron.desktop \
       $out/share/applications/voxatron.desktop
 
-    ln -s ${systemd.lib}/lib/libudev.so.1 $out/lib/libudev.so.1
+    ln -s ${systemd}/lib/libudev.so.1 $out/lib/libudev.so.1
 
     patchelf \
       --interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
@@ -56,7 +64,7 @@ stdenv.mkDerivation rec {
       $out/bin/pico8
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Fantasy console and cartridges made out of voxels.";
     homepage = "https://www.lexaloffle.com/voxatron.php";
     license = licenses.unfree;

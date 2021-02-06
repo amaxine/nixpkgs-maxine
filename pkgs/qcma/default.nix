@@ -1,5 +1,15 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, autoreconfHook, libvitamtp
-, pkgconfig, libnotify, ffmpeg, qt5, makeWrapper }:
+{ lib
+, stdenv
+, fetchFromGitHub
+, autoconf
+, automake
+, autoreconfHook
+, libvitamtp
+, pkgconfig
+, libnotify
+, ffmpeg
+, qt5
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "qcma";
@@ -34,7 +44,7 @@ stdenv.mkDerivation rec {
     lrelease common/resources/translations/qcma_*.ts
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "QCMA is an open-source implementation of Sony's CMA";
     homepage = "https://github.com/codestation/qcma";
     license = licenses.gpl3;

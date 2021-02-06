@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, substituteAll, glib, gettext, xorg }:
+{ pkgs, stdenv, fetchFromGitHub, substituteAll, glib, gettext, xorg }:
 
 # This is a fork of no-title-bar from nixpkgs to point towards a non-broken fork
 # of the upstream project.
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "INSTALLBASE=$(out)/share/gnome-shell/extensions" ];
 
-  meta = with stdenv.lib; {
+  meta = with pkgs.lib; {
     description = "Integrates maximized windows with the top panel";
     homepage = "https://github.com/franglais125/no-title-bar";
     license = licenses.gpl2;

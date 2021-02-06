@@ -1,5 +1,13 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, autoreconfHook, libtool, libusb
-, libxml2, pkgconfig }:
+{ lib
+, stdenv
+, fetchFromGitHub
+, autoconf
+, automake
+, autoreconfHook
+, libtool
+, libusb
+, libxml2
+, pkgconfig }:
 
 stdenv.mkDerivation rec {
   pname = "libvitamtp";
@@ -15,7 +23,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     [ autoconf automake autoreconfHook pkgconfig libusb libxml2 libtool ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "libvitamtp does low level USB communications with the Vita";
     homepage = "https://github.com/codestation/vitamtp";
     license = licenses.gpl3;

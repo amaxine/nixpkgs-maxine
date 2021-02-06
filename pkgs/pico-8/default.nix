@@ -1,4 +1,12 @@
-{ stdenv, requireFile, unzip, makeDesktopItem, SDL2, xorg, libpulseaudio, systemd }:
+{ lib
+, stdenv
+, requireFile
+, unzip
+, makeDesktopItem
+, SDL2
+, xorg
+, libpulseaudio
+, systemd }:
 
 let
   arch = if stdenv.system == "x86_64-linux"
@@ -54,7 +62,7 @@ stdenv.mkDerivation rec {
     cp ${desktopItem}/share/applications/pico8.desktop \
       $out/share/applications/pico8.desktop
 
-    ln -s ${systemd.lib}/lib/libudev.so.1 $out/lib/libudev.so.1
+    ln -s ${systemd}/lib/libudev.so.1 $out/lib/libudev.so.1
 
     patchelf \
       --interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
@@ -62,7 +70,7 @@ stdenv.mkDerivation rec {
       $out/bin/pico8
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Tiny 2D, 4-bit colour fantasy console.";
     homepage = "https://www.lexaloffle.com/pico-8.php";
     license = licenses.unfree;
