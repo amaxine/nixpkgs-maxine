@@ -14,8 +14,8 @@ let
     else "i386";
 
   sha256 = if stdenv.system == "x86_64-linux"
-    then "cbeec79f9e6e3474761cd495acb8a0e2a68fd7a94a8160a5fdbbd08c5452d0d8"
-    else "2d729ebc0ba5c2281ea29f2e0291dbac3e0a9671b3e7f2d471411c6dd9ac719a";
+    then "13vpfjgs5kqr2q3fg0g3kccbcxlfsyzff97kdxc5fw7hhh1h8jw8"
+    else "1a4lsvc0p9sapiik2kwgx4p5ykv5wi01z1xlkprg3f9samk2kzw1";
 
   desktopItem = makeDesktopItem {
     desktopName = "pico-8";
@@ -31,7 +31,7 @@ in
 
 stdenv.mkDerivation rec {
   pname = "pico-8";
-  version = "0.2.1b";
+  version = "0.2.2";
 
   helpMsg = ''
     We cannot download the full version automatically, as you require a license.
