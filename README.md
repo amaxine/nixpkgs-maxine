@@ -8,7 +8,7 @@ My personal [nixpkgs][nixpkgs] repository.
 
 ```bash
 $ nix-channel --add
-https://github.com/maxeaubrey/nixpkgs-maxine/archive/master.tar.gz
+https://github.com/maxeaubrey/nixpkgs-maxine/archive/main.tar.gz
 nixpkgs-maxine
 $ nix-channel --update nixpkgs-maxine
 ```
@@ -36,14 +36,14 @@ with pkgs;
 
 let
   maxine = import (builtins.fetchTarball
-    https://github.com/maxeaubrey/nixpkgs-maxine/archive/master.tar.gz) {};
+    https://github.com/maxeaubrey/nixpkgs-maxine/archive/main.tar.gz) {};
 in
 
 mkShell {
   buildInputs = [
     go
     perl
-    maxine.trex
+    maxine.qcma
   ];
 }
 ```
