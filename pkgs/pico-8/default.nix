@@ -14,8 +14,8 @@ let
     else "i386";
 
   sha256 = if stdenv.system == "x86_64-linux"
-    then "13vpfjgs5kqr2q3fg0g3kccbcxlfsyzff97kdxc5fw7hhh1h8jw8"
-    else "1a4lsvc0p9sapiik2kwgx4p5ykv5wi01z1xlkprg3f9samk2kzw1";
+    then "1c6ph5hjd2c493jz52mp84hw8l7jayrxcv3a8s0x9amv3spnw12j"
+    else "07wxfyzsz6nlk24pfgv8q9afxljkssbzgqrfga91i5yanr1jhb9g";
 
   desktopItem = makeDesktopItem {
     desktopName = "pico-8";
@@ -31,7 +31,7 @@ in
 
 stdenv.mkDerivation rec {
   pname = "pico-8";
-  version = "0.2.2";
+  version = "0.2.2c";
 
   helpMsg = ''
     We cannot download the full version automatically, as you require a license.
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ unzip ];
   phases = [ "unpackPhase" "installPhase" ];
 
-  libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc.lib stdenv.cc.libc SDL2
+  libPath = lib.makeLibraryPath [ stdenv.cc.cc.lib stdenv.cc.libc SDL2
     xorg.libX11 xorg.libXinerama libpulseaudio ];
 
   installPhase = ''
